@@ -31,41 +31,41 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 resource "aws_instance" "public-proxy_1" {
-  ami = "${data.aws_ami.ubuntu.subnet_id}"
+  ami = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
-  subnet_id = "${aws_subnet.public_subnet_1}"
-  vpc_security_group_ids = "${aws_security_group.allow_ssh.id}"
-  key-name = "${aws_key_pair.deployer}"
+  subnet_id = "${aws_subnet.public_subnet_1.id}"
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
+  key_name = "${aws_key_pair.deployer.public_key}"
 }
 
 resource "aws_instance" "public-proxy_2" {
-  ami = "${data.aws_ami.ubuntu.subnet_id}"
+  ami = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
-  subnet_id = "${aws_subnet.public_subnet_2}"
-  vpc_security_group_ids = "${aws_security_group.allow_ssh.id}"
-  key-name = "${aws_key_pair.deployer}"
+  subnet_id = "${aws_subnet.public_subnet_2.id}"
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
+  key_name = "${aws_key_pair.deployer.public_key}"
 }
 
 resource "aws_instance" "bastion" {
-  ami = "${data.aws_ami.ubuntu.subnet_id}"
+  ami = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
-  subnet_id = "${aws_subnet.public_subnet_1}"
-  vpc_security_group_ids = "${aws_security_group.allow_ssh.id}"
-  key-name = "${aws_key_pair.deployer}"
+  subnet_id = "${aws_subnet.public_subnet_1.id}"
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
+  key_name = "${aws_key_pair.deployer.public_key}"
 }
 
 resource "aws_instance" "private-proxy_1" {
-  ami = "${data.aws_ami.ubuntu.subnet_id}"
+  ami = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
-  subnet_id = "${aws_subnet.private_subnet_1}"
-  vpc_security_group_ids = "${aws_security_group.allow_ssh.id}"
-  key-name = "${aws_key_pair.deployer}"
+  subnet_id = "${aws_subnet.private_subnet_1.id}"
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
+  key_name = "${aws_key_pair.deployer.public_key}"
 }
 
-resource "aws_instance" "private-proxy_1" {
-  ami = "${data.aws_ami.ubuntu.subnet_id}"
+resource "aws_instance" "private-proxy_2" {
+  ami = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
-  subnet_id = "${aws_subnet.private_subnet_2}"
-  vpc_security_group_ids = "${aws_security_group.allow_ssh.id}"
-  key-name = "${aws_key_pair.deployer}"
+  subnet_id = "${aws_subnet.private_subnet_2.id}"
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
+  key_name = "${aws_key_pair.deployer.public_key}"
 }

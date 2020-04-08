@@ -1,23 +1,23 @@
-variable "subnet_public1" {
+variable "subnet_public_1" {
 	type = "string"
 }
 
-variable "subnet_public2" {
+variable "subnet_public_2" {
 	type = "string"
 }
 
-variable "subnet_private1" {
+variable "subnet_private_1" {
 	type = "string"
 }
 
-variable "subnet_private2" {
+variable "subnet_private_2" {
 	type = "string"
 }
 
-variable "availability_zone1" {
+variable "availability_zone_1" {
 	type ="string"
 }
 
-variable "availability_zone2" {
+variable "availability_zone_2" {
 	type ="string"
 }
