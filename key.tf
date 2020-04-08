@@ -4,22 +4,25 @@ resource "tls_private_key" "example" {
 }
 
 resource "aws_secretsmanager_secret" "private" {
-  name = "private_key"
+  name = "new_private_key"
 }
 
 resource "aws_secretsmanager_secret_version" "example" {
-  secret_id = "${aws_secretsmanager_secret.private.id}"
+  secret_id     = "${aws_secretsmanager_secret.private.id}"
   secret_string = "${tls_private_key.example.private_key_pem}"
 
   provisioner "local-exec" {
-    command = "aws secretsmanager get-secret-value --secret-id private_key --profile default --region us-east-1"
-    interpreter = ["/bin/bash", "-c"]
+    command = ""
+
   }
 }
- 
+
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
   public_key = "${tls_private_key.example.public_key_openssh}"
 }
 
- 
+output "private_key" {
+  value = "${tls_private_key.example.private_key_pem}"
+}
+

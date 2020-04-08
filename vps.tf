@@ -15,7 +15,7 @@ resource "aws_subnet" "public_subnet_2" {
 }
 resource "aws_subnet" "private_subnet_1" {
   vpc_id            = "${aws_vpc.myvpc.id}"
-  cidr_block        = "${var.subnet_private_2}"
+  cidr_block        = "${var.subnet_private_1}"
   availability_zone = "${var.availability_zone_1}"
 }
 
