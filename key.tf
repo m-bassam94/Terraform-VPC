@@ -4,17 +4,12 @@ resource "tls_private_key" "example" {
 }
 
 resource "aws_secretsmanager_secret" "private" {
-  name = "new_private_key"
+  name = "private_key_v2"
 }
 
 resource "aws_secretsmanager_secret_version" "example" {
   secret_id     = "${aws_secretsmanager_secret.private.id}"
   secret_string = "${tls_private_key.example.private_key_pem}"
-
-  provisioner "local-exec" {
-    command = ""
-
-  }
 }
 
 resource "aws_key_pair" "deployer" {

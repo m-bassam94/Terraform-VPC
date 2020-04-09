@@ -1,0 +1,25 @@
+- host: public
+  become: true
+  user: ec2-user
+  vars:
+    - ansible_ssh_user: "ec2-user"
+    - ansible_ssh_common_args: >
+          -o ProxyCommand="ssh -W %h:%p -q ec2-user@  \
+          -o ServerAliveInterval=5 \
+          -o StrictHostKeyChecking=no
+  tasks:
+    - name: epel-release install
+      package: 
+        name: epel-release
+        state: present
+
+    - name: download nginx
+      package: 
+        name: nginx
+        state: present
+
+    - name: start nginx
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
